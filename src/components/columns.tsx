@@ -26,7 +26,7 @@ export const columns: ColumnDef<task>[] = [
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => {
-        const status = row.getValue("status")
+        const status = row.getValue("status") as string
         return (
             <span className={cn("rounded-full px-3 py-1", {
                 "bg-emerald-100 text-emerald-500": status === "Done",
