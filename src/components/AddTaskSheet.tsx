@@ -66,7 +66,6 @@ const AddTaskSheet = () => {
                     defaultValue={"Low"}
                     onChange={(e) => ((newTask.priority as string) = e.target.value )}
                   >
-                    {/* To do: Don't hard code it, get the values from localStorage */}
                     <option value="High">High</option>
                     <option value="Medium">Medium</option>
                     <option value="Low">Low</option>
@@ -81,7 +80,6 @@ const AddTaskSheet = () => {
                     defaultValue={"In Queue"}
                     onChange={(e) => ((newTask.status as string) = e.target.value )}
                   >
-                    {/* To do: Don't hard code it, get the values from localStorage */}
                     <option value="Done">Done</option>
                     <option value="In Progress">In Progress</option>
                     <option value="In Queue">In Queue</option>

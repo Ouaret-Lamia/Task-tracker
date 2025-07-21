@@ -10,10 +10,10 @@ import { Pencil } from "lucide-react";
 import { Button, buttonVariants } from "./ui/button";
 import type { task } from "./columns";
 
-const ModifyTaskSheet = ({ taskData }: {taskData : task} ) => {
-    const handleModifyTask = () => {
-        localStorage.setItem(`task${taskData.id}`, JSON.stringify(taskData));
-    }
+const ModifyTaskSheet = ({ taskData }: { taskData: task }) => {
+  const handleModifyTask = () => {
+    localStorage.setItem(`task${taskData.id}`, JSON.stringify(taskData));
+  };
 
   return (
     <Sheet>
@@ -31,8 +31,7 @@ const ModifyTaskSheet = ({ taskData }: {taskData : task} ) => {
             Modify task
           </SheetTitle>
           <SheetDescription>
-            {/* To do: Modify the task in localStorage and display it*/}
-          <form className="space-y-5" onSubmit={() => handleModifyTask()}>
+            <form className="space-y-5" onSubmit={() => handleModifyTask()}>
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
@@ -54,8 +53,8 @@ const ModifyTaskSheet = ({ taskData }: {taskData : task} ) => {
                   <input
                     type="date"
                     className="p-3 mt-2 block w-full rounded border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
-                    defaultValue={taskData.deadline}
-                    onChange={(e) => (taskData.deadline = e.target.value)}
+                    defaultValue={new Date(taskData.deadline).toISOString().split("T")[0]}
+                    onChange={(e) => (taskData.deadline = new Date(e.target.value))}
                     required
                   />
                 </div>
@@ -66,9 +65,10 @@ const ModifyTaskSheet = ({ taskData }: {taskData : task} ) => {
                   <select
                     className="p-3 mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
                     defaultValue={taskData.priority}
-                    onChange={(e) => ((taskData.priority as string) = e.target.value )}
+                    onChange={(e) =>
+                      ((taskData.priority as string) = e.target.value)
+                    }
                   >
-                    {/* To do: Don't hard code it, get the values from localStorage */}
                     <option value="High">High</option>
                     <option value="Medium">Medium</option>
                     <option value="Low">Low</option>
@@ -81,9 +81,10 @@ const ModifyTaskSheet = ({ taskData }: {taskData : task} ) => {
                   <select
                     className="p-3 mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
                     defaultValue={taskData.status}
-                    onChange={(e) => ((taskData.status as string) = e.target.value )}
+                    onChange={(e) =>
+                      ((taskData.status as string) = e.target.value)
+                    }
                   >
-                    {/* To do: Don't hard code it, get the values from localStorage */}
                     <option value="Done">Done</option>
                     <option value="In Progress">In Progress</option>
                     <option value="In Queue">In Queue</option>

@@ -20,11 +20,11 @@ const Dashboard = () => {
   let progCount = 0;
   let queueCount = 0;
 
-  const [deadlines, setDeadlines]= useState<Deadlines> ({
+  const [deadlines, setDeadlines] = useState<Deadlines>({
     doneDates: [],
     progDates: [],
     queueDates: [],
-  })
+  });
 
   const [stats, setStats] = useState<Stats[]>([]);
 
@@ -44,7 +44,7 @@ const Dashboard = () => {
         const taskData = localStorage.getItem(key);
         if (taskData) {
           const val = JSON.parse(taskData);
-          const deadline = new Date(val.deadline)
+          const deadline = new Date(val.deadline);
           val.status === "Done"
             ? (doneCount++, doneDates.push(deadline))
             : val.status === "In Progress"
@@ -53,8 +53,8 @@ const Dashboard = () => {
         }
       }
     }
-    
-    setDeadlines({doneDates, progDates, queueDates})
+
+    setDeadlines({ doneDates, progDates, queueDates });
 
     setStats([
       {
@@ -108,8 +108,13 @@ const Dashboard = () => {
         ))}
       </div>
 
-      <div className="col-span-3 bg-gray-50 rounded-md border p-10 flex justify-center">
-        <CalendarDash doneDates={deadlines.doneDates} progDates={deadlines.progDates} queueDates={deadlines.queueDates} />
+      <div className="col-span-3 bg-gray-50 rounded-md border py-6 flex flex-col items-center gap-6">
+        <h2 className="text-4xl font-semibold text-zinc-500">My deadlines</h2>
+        <CalendarDash
+          doneDates={deadlines.doneDates}
+          progDates={deadlines.progDates}
+          queueDates={deadlines.queueDates}
+        />
       </div>
     </div>
   );

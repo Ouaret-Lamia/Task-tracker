@@ -3,8 +3,6 @@ import { columns, type task } from "@/components/columns";
 import { DataTable } from "@/components/TasksTable";
 import { useEffect, useState } from "react";
 
-// To do: Fetch my metadata
-
 
 const Tasks = () => {
   const [data, setData] = useState<task[]>([]);
