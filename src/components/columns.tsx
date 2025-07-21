@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import type { ColumnDef } from "@tanstack/react-table";
 import { Flame, Leaf, Pencil, X, Zap } from "lucide-react";
 import { Button } from "./ui/button";
+import ModifyTaskSheet from "./ModifyTaskSheet";
 
 export type task = {
     id: string,
@@ -73,9 +74,7 @@ export const columns = (deleteData: (key: string) => void) : ColumnDef<task>[] =
       const id = row.original.id
       return (
         <div className="flex items-center space-x-2">
-          <Button variant={"ghost"} className="text-primary">
-            <Pencil />
-          </Button>
+          <ModifyTaskSheet taskData={row.original} />
           <Button variant={"ghost"} className="text-red-500 hover:text-red-700" onClick={() => {deleteData(id)}}>
             <X />
           </Button>

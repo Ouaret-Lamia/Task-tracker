@@ -6,32 +6,33 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import type { task } from "./columns";
+import { Pencil } from "lucide-react";
 import { Button, buttonVariants } from "./ui/button";
+import type { task } from "./columns";
 
-const AddTaskSheet = () => {
-  const newTask: task = {
-    id: String(Date.now()),
-    title: "",
-    status: "In Queue",
-    deadline: new Date().toISOString().split("T")[0],
-    priority: "Low",
-  };
-
-  const handleAddTask = () => {
-    localStorage.setItem(`task${newTask.id}`, JSON.stringify(newTask));
-  };
+const ModifyTaskSheet = ({ taskData }: {taskData : task} ) => {
+    const handleModifyTask = () => {
+        localStorage.setItem(`task${taskData.id}`, JSON.stringify(taskData));
+    }
 
   return (
     <Sheet>
-      <SheetTrigger className={buttonVariants()}>Add new task</SheetTrigger>
+      <SheetTrigger
+        className={buttonVariants({
+          variant: "ghost",
+          className: "text-primary",
+        })}
+      >
+        <Pencil />
+      </SheetTrigger>
       <SheetContent>
         <SheetHeader>
           <SheetTitle className="text-2xl text-center py-5">
-            Add New Task
+            Modify task
           </SheetTitle>
           <SheetDescription>
-            <form className="space-y-5" onSubmit={() => handleAddTask()}>
+            {/* To do: Modify the task in localStorage and display it*/}
+          <form className="space-y-5" onSubmit={() => handleModifyTask()}>
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
@@ -41,7 +42,8 @@ const AddTaskSheet = () => {
                     type="text"
                     className="p-3 mt-2 block w-full rounded border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
                     placeholder="Enter task title"
-                    onChange={(e) => (newTask.title = e.target.value)}
+                    defaultValue={taskData.title}
+                    onChange={(e) => (taskData.title = e.target.value)}
                     required
                   />
                 </div>
@@ -52,8 +54,8 @@ const AddTaskSheet = () => {
                   <input
                     type="date"
                     className="p-3 mt-2 block w-full rounded border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
-                    defaultValue={new Date().toISOString().split("T")[0]}
-                    onChange={(e) => (newTask.deadline = e.target.value)}
+                    defaultValue={taskData.deadline}
+                    onChange={(e) => (taskData.deadline = e.target.value)}
                     required
                   />
                 </div>
@@ -63,8 +65,8 @@ const AddTaskSheet = () => {
                   </label>
                   <select
                     className="p-3 mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
-                    defaultValue={"Low"}
-                    onChange={(e) => ((newTask.priority as string) = e.target.value )}
+                    defaultValue={taskData.priority}
+                    onChange={(e) => ((taskData.priority as string) = e.target.value )}
                   >
                     {/* To do: Don't hard code it, get the values from localStorage */}
                     <option value="High">High</option>
@@ -78,8 +80,8 @@ const AddTaskSheet = () => {
                   </label>
                   <select
                     className="p-3 mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
-                    defaultValue={"In Queue"}
-                    onChange={(e) => ((newTask.status as string) = e.target.value )}
+                    defaultValue={taskData.status}
+                    onChange={(e) => ((taskData.status as string) = e.target.value )}
                   >
                     {/* To do: Don't hard code it, get the values from localStorage */}
                     <option value="Done">Done</option>
@@ -89,7 +91,7 @@ const AddTaskSheet = () => {
                 </div>
               </div>
               <Button type="submit" className="mt-4 w-full">
-                Add Task
+                Modify Task
               </Button>
             </form>
           </SheetDescription>
@@ -99,4 +101,4 @@ const AddTaskSheet = () => {
   );
 };
 
-export default AddTaskSheet;
+export default ModifyTaskSheet;
