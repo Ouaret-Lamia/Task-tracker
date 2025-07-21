@@ -14,7 +14,7 @@ const AddTaskSheet = () => {
     id: String(Date.now()),
     title: "",
     status: "In Queue",
-    deadline: new Date(),
+    deadline: new Date().toISOString().split("T")[0],
     priority: "Low",
   };
 
@@ -54,7 +54,7 @@ const AddTaskSheet = () => {
                     type="date"
                     className="p-3 mt-2 block w-full rounded border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
                     defaultValue={new Date().toISOString().split("T")[0]}
-                    onChange={(e) => (newTask.deadline = e.target.valueAsDate || new Date())}
+                    onChange={(e) => (newTask.deadline = e.target.value)}
                     required
                   />
                 </div>

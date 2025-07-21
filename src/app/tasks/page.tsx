@@ -1,37 +1,16 @@
 import AddTaskSheet from "@/components/AddTaskSheet";
 import { columns, type task } from "@/components/columns";
 import { DataTable } from "@/components/TasksTable";
-import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
 // To do: Fetch my metadata
-const tasks: task[] = [
-  {
-    id: "1",
-    title: "Complete project documentation",
-    status: "Done",
-    deadline: new Date(2025, 6, 20),
-    priority: "High",
-  },
-  {
-    id: "2",
-    title: "Implement new feature in the app",
-    status: "In Progress",
-    deadline: new Date(2025, 6, 29),
-    priority: "Medium",
-  },
-  {
-    id: "3",
-    title: "Fix bugs reported by QA team",
-    status: "In Queue",
-    deadline: new Date(2025, 7, 2),
-    priority: "Low",
-  },
-];
+
 
 const Tasks = () => {
   // const data = getData()
-  const [data, setData] = useState<task[]>(tasks);
+  const [data, setData] = useState<task[]>([]);
+
+  
 
   // const handleAddTask = () => {
   //   const newTask: task = {
@@ -45,6 +24,29 @@ const Tasks = () => {
   //   setData((prev) => [...prev, newTask]);
   // };
 
+  const fetchData = () => {
+    const tasks = []
+    for (let i=0; i<localStorage.length; i++) {
+      const key = localStorage.key(i)
+      if(key && key.startsWith("task")) {
+        const taskData = localStorage.getItem(key)
+        if (taskData) {
+          tasks.push(JSON.parse(taskData))
+        }
+      }
+    }
+    setData(tasks)
+  }
+
+  const deleteData = (key: string) => {
+    localStorage.removeItem(`task${key}`);
+    fetchData();
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
   return (
     <div>
       <div className="flex justify-between items-end pr-5">
@@ -53,7 +55,7 @@ const Tasks = () => {
       </div>
 
       <div className="py-7">
-        <DataTable columns={columns} data={data} />
+        <DataTable columns={columns(deleteData)} data={data} />
       </div>
     </div>
   );

@@ -9,11 +9,11 @@ export type task = {
     id: string,
     title: string;
     status: "Done" | "In Progress" | "In Queue",
-    deadline: Date,
+    deadline: string,
     priority: "High" | "Medium" | "Low",
 }
 
-export const columns: ColumnDef<task>[] = [
+export const columns = (deleteData: (key: string) => void) : ColumnDef<task>[] => [
 //   {
 //     accessorKey: "id",
 //     header: "ID",
@@ -69,13 +69,14 @@ export const columns: ColumnDef<task>[] = [
   {
     id: "actions",
     header: "Actions",
-    cell: () => {
+    cell: ({ row }) => {
+      const id = row.original.id
       return (
         <div className="flex items-center space-x-2">
           <Button variant={"ghost"} className="text-primary">
             <Pencil />
           </Button>
-          <Button variant={"ghost"} className="text-red-500 hover:text-red-700">
+          <Button variant={"ghost"} className="text-red-500 hover:text-red-700" onClick={() => {deleteData(id)}}>
             <X />
           </Button>
         </div>

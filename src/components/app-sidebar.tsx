@@ -24,13 +24,8 @@ const items = [
     title: "Tasks",
     url: "/tasks",
     icon: ListTodo,
-  },
-  {
-    title: "Projects",
-    url: "/projects",
-    icon: FolderOpenDot,
-  },
-];
+  }
+]
 
 export function AppSidebar() {
   return (

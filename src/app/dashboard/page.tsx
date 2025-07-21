@@ -31,7 +31,7 @@ const Dashboard = () => {
           <img
             referrerPolicy="no-referrer"
             className="rounded-full h-15 w-15"
-            src="./vite.svg"
+            src="./pfp.png"
             alt="Your profile picture"
           />
         </div>
