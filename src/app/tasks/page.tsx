@@ -7,22 +7,7 @@ import { useEffect, useState } from "react";
 
 
 const Tasks = () => {
-  // const data = getData()
   const [data, setData] = useState<task[]>([]);
-
-  
-
-  // const handleAddTask = () => {
-  //   const newTask: task = {
-  //     id: String(Date.now()),
-  //     title: "New Task",
-  //     status: "Done",
-  //     deadline: new Date(2025, 6, 30),
-  //     priority: "High",
-  //   };
-
-  //   setData((prev) => [...prev, newTask]);
-  // };
 
   const fetchData = () => {
     const tasks = []

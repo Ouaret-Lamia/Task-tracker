@@ -17,10 +17,18 @@ function Calendar({
   buttonVariant = "ghost",
   formatters,
   components,
+  modifiers,
+  doneDates,
+  progDates,
+  queueDates,
   ...props
 }: React.ComponentProps<typeof DayPicker> & {
   buttonVariant?: React.ComponentProps<typeof Button>["variant"]
-}) {
+  doneDates: Date[],
+  progDates: Date[],
+  queueDates: Date[],
+}, 
+) {
   const defaultClassNames = getDefaultClassNames()
 
   return (
@@ -38,6 +46,19 @@ function Calendar({
           date.toLocaleString("default", { month: "short" }),
         ...formatters,
       }}
+
+      modifiers={{
+        done_days: doneDates,
+        prog_days: progDates,
+        queue_days: queueDates,
+        ...modifiers,
+      }}
+      modifiersClassNames={{
+        done_days: "bg-emerald-100 text-emerald-500 rounded-md",
+        prog_days: "bg-purple-100 text-purple-500 rounded-md",
+        queue_days: "bg-orange-100 text-orange-500 rounded-md",
+      }}
+
       classNames={{
         root: cn("w-fit", defaultClassNames.root),
         months: cn(
@@ -112,7 +133,7 @@ function Calendar({
           defaultClassNames.today
         ),
         outside: cn(
-          "text-muted-foreground aria-selected:text-muted-foreground",
+          "text-muted-foreground aria-selected:text-muted-foreground opacity-40",
           defaultClassNames.outside
         ),
         disabled: cn(

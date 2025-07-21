@@ -10,15 +10,11 @@ export type task = {
     id: string,
     title: string;
     status: "Done" | "In Progress" | "In Queue",
-    deadline: string,
+    deadline: Date,
     priority: "High" | "Medium" | "Low",
 }
 
 export const columns = (deleteData: (key: string) => void) : ColumnDef<task>[] => [
-//   {
-//     accessorKey: "id",
-//     header: "ID",
-//   },
   {
     accessorKey: "title",
     header: "Title",
