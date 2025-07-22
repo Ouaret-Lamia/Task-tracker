@@ -2,9 +2,9 @@
 
 import { cn } from "@/lib/utils";
 import type { ColumnDef } from "@tanstack/react-table";
-import { Flame, Leaf, Pencil, X, Zap } from "lucide-react";
-import { Button } from "./ui/button";
+import { ArrowUpDown, Flame, Leaf, X, Zap } from "lucide-react";
 import ModifyTaskSheet from "./ModifyTaskSheet";
+import { Button } from "./ui/button";
 
 export type task = {
     id: string,
@@ -37,7 +37,17 @@ export const columns = (deleteData: (key: string) => void) : ColumnDef<task>[] =
   },
   {
     accessorKey: "deadline",
-    header: "Deadline",
+    header: ({column}) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Deadline
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
     cell: ({ row }) => {
       const date = new Date(row.getValue("deadline"));
       return date.toLocaleDateString();
