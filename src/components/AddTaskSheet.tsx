@@ -7,7 +7,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import type { task } from "./columns";
-import { Button, buttonVariants } from "./ui/button";
+import { Button } from "./ui/button";
+import { buttonVariants } from "@/lib/buttonVariants";
 
 const AddTaskSheet = () => {
   const newTask: task = {

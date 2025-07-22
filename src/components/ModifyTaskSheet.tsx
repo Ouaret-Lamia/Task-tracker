@@ -7,8 +7,9 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Pencil } from "lucide-react";
-import { Button, buttonVariants } from "./ui/button";
+import { Button } from "./ui/button";
 import type { task } from "./columns";
+import { buttonVariants } from "@/lib/buttonVariants";
 
 const ModifyTaskSheet = ({ taskData }: { taskData: task }) => {
   const handleModifyTask = () => {

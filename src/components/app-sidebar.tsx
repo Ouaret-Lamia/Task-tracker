@@ -1,4 +1,4 @@
-import { FolderOpenDot, Home, ListTodo } from "lucide-react";
+import { Home, ListTodo } from "lucide-react";
 
 import {
   Sidebar,

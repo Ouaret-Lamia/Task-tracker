@@ -1,7 +1,7 @@
 import CalendarDash from "@/components/CalendarDash";
 import { cn } from "@/lib/utils";
 import { Check, ClockFading, SquareStack } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Stats {
   icon: React.ReactNode;
@@ -20,7 +20,7 @@ const Dashboard = () => {
   let progCount = 0;
   let queueCount = 0;
 
-  const [deadlines, setDeadlines] = useState<Deadlines>({
+  const deadlines = useRef<Deadlines>({
     doneDates: [],
     progDates: [],
     queueDates: [],
@@ -45,16 +45,22 @@ const Dashboard = () => {
         if (taskData) {
           const val = JSON.parse(taskData);
           const deadline = new Date(val.deadline);
-          val.status === "Done"
-            ? (doneCount++, doneDates.push(deadline))
-            : val.status === "In Progress"
-            ? (progCount++, progDates.push(deadline))
-            : (queueCount++, queueDates.push(deadline));
+
+          if (val.status === "Done") {
+            doneCount++;
+            doneDates.push(deadline);
+          } else if (val.status === "In Progress") {
+            progCount++;
+            progDates.push(deadline);
+          } else if (val.status === "In Queue") {
+            queueCount++;
+            queueDates.push(deadline);
+          }
         }
       }
     }
 
-    setDeadlines({ doneDates, progDates, queueDates });
+    deadlines.current = { doneDates, progDates, queueDates };
 
     setStats([
       {
@@ -111,9 +117,9 @@ const Dashboard = () => {
       <div className="col-span-3 bg-gray-50 rounded-md border py-6 flex flex-col items-center gap-6">
         <h2 className="text-4xl font-semibold text-zinc-500">My deadlines</h2>
         <CalendarDash
-          doneDates={deadlines.doneDates}
-          progDates={deadlines.progDates}
-          queueDates={deadlines.queueDates}
+          doneDates={deadlines.current.doneDates}
+          progDates={deadlines.current.progDates}
+          queueDates={deadlines.current.queueDates}
         />
       </div>
     </div>
